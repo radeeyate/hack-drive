@@ -4,8 +4,8 @@ tmp_dir = "tmp"
 
 [build]
   args_bin = []
-  bin = "../../../../usr/bin/python3 -m http.server -d example"
-  cmd = "GOOS=js GOARCH=wasm go build -o example/bubbletea.wasm ."
+  bin = "../../../../usr/bin/python3 -m http.server -d frontend"
+  cmd = "GOOS=js GOARCH=wasm go build -o frontend/hackdrive.wasm ."
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata", "_vendor"]
   exclude_file = []
