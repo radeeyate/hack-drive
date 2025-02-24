@@ -37,7 +37,6 @@ jobs:
           mkdir -p dist
           cp frontend/index.html dist/
           cp frontend/wasm_exec.js dist/
-          cp -r frontend/static dist/
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
