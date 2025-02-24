@@ -136,7 +136,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			input := strings.TrimSpace(m.textInput.Value())
 
 			if input != "" {
-				commands := []string{"ls", "help", "cat", "cat about.txt", "cat resources.txt", "cat submit.txt", "uptime", "neofetch"} // Include neofetch in suggestions
+				commands := []string{"ls", "help", "cat", "cat about.txt", "cat resources.txt", "cat submit.txt", "cat requirements.txt", "uptime", "neofetch"} // Include neofetch in suggestions
 
 				matches := fuzzy.Find(input, commands)
 				if len(matches) > 0 {
@@ -184,7 +184,7 @@ func (m model) View() string {
 func executeCommand(command string) string {
 	switch command {
 	case "ls":
-		return "about.txt  resources.txt  submit.txt"
+		return "about.txt  resources.txt  requirements.txt  submit.txt"
 	case "cat about.txt":
 		return `hack drive is the ysws about making a cool filesystem. have
 you heard of fuse (filesystem in userspace)? it's a way to
@@ -214,7 +214,7 @@ once you create your project, please see the submission
 instructions in submit.txt.
 `
 	case "cat resources.txt":
-		return ` here are some resources to help you get started:
+		return `here are some resources to help you get started:
   - fuse (c): https://github.com/libfuse/libfuse
     - awesome-fuse-fs: https://github.com/koding/awesome-fuse-fs
     - go-fuse (golang): https://github.com/hanwen/go-fuse
@@ -242,6 +242,33 @@ to submit your project, please do the following:
 5. wait for us to review your submission.
 6. if your submission is accepted, we'll send you a flash drive!
 `
+	case "cat requirements.txt":
+		return `the following requirements must be met to receive a flash drive:
+  - spend 3-4 hours working on your project
+  - your project must be open source
+  - your project must be mountable and functional
+  - your project must support at least the following operations:
+    - getattr
+	- create
+	- open
+	- read
+	- write
+	- readdir
+  - data cannot be stored conventionally you cannot:
+    - store data on a local disk or in a RAM disk
+  - acceptable and encouraged ideas:
+    - storing files on youtube by encoding them into video frames
+	- slack client interacted with via the filesystem
+	- store files on a blockchain
+	- encoding files into qr codes
+	- a fediverse client
+	- or any other weird thing you can think of
+  - your filesystem doesn't have to store files in the traditional sense.
+  for example, you could create a filesystem that acts as a slack client,
+  where creating a file sends a message, and reading a file displays messages.
+  the key is to present a filesystem interface, even if the underlying data
+  isn't typical "files"
+  `
 	case "help":
 		return "Commands: help, ls, cat, neofetch"
 	case "neofetch":
