@@ -1,0 +1,132 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xterm-addon-web-links@latest/lib/xterm-addon-web-links.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.min.css" rel="stylesheet">
+    <script src="wasm_exec.js"></script>
+    <title>Hack Drive YSWS</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #282c34;
+        }
+
+        .terminal-container {
+            overflow: hidden;
+            background-color: #21252b;
+            border: 1px solid #3e4451;
+        }
+
+        .xterm .xterm-viewport {
+            width: initial !important;
+        }
+
+        .xterm {
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+    </style>
+</head>
+
+<body>
+    <div class="terminal-container" style="height: 100%; width: 100%;">
+        <div id="terminal" style="height: 101%"></div>
+    </div>
+    <script>
+        const myTheme = {
+            background: '#282c34',
+            foreground: '#abb2bf',
+            cursor: '#528bff',
+            cursorAccent: '#282c34',
+            selection: '#3e4451',
+
+            black: '#282c34',
+            red: '#e06c75',
+            green: '#98c379',
+            yellow: '#e5c07b',
+            blue: '#61afef',
+            magenta: '#c678dd',
+            cyan: '#56b6c2',
+            white: '#abb2bf',
+            brightBlack: '#5c6370',
+            brightRed: '#e06c75',
+            brightGreen: '#98c379',
+            brightYellow: '#e5c07b',
+            brightBlue: '#61afef',
+            brightMagenta: '#c678dd',
+            brightCyan: '#56b6c2',
+            brightWhite: '#ffffff',
+        };
+
+        function initTerminal() {
+            // Check if bubbletea is initialized
+            if (globalThis.bubbletea_resize === undefined || globalThis.bubbletea_read === undefined || globalThis.bubbletea_write === undefined) {
+                setTimeout(() => {
+                    console.log("waiting for bubbletea");
+                    initTerminal();
+                }, 500);
+                return;
+            }
+
+            const term = new Terminal({
+                theme: myTheme,
+                allowProposedApi: true,
+            });
+            const fitAddon = new FitAddon.FitAddon();
+            const webLinksAddon = new WebLinksAddon.WebLinksAddon();
+
+            term.loadAddon(fitAddon);
+            term.loadAddon(webLinksAddon);
+            term.open(document.getElementById('terminal'));
+
+            // Register terminal resize
+            fitAddon.fit();
+            window.addEventListener('resize', () => (fitAddon.fit()));
+
+            // Focus terminal
+            term.focus();
+
+            // Initial resize
+            bubbletea_resize(term.cols, term.rows)
+
+            // Read from bubbletea and write to xterm
+            setInterval(() => {
+                const read = bubbletea_read();
+                if (read && read.length > 0) {
+                    term.write(read);
+                }
+            }, 100);
+
+            // Resize on terminal resize
+            term.onResize((size) => (bubbletea_resize(size.cols, size.rows)));
+
+            // Write xterm output to bubbletea
+            term.onData((data) => (bubbletea_write(data)));
+        }
+
+        function init() {
+            const go = new Go();
+            WebAssembly.instantiateStreaming(fetch("./hackdrive.wasm"), go.importObject).then((result) => {
+                go.run(result.instance).then(() => {
+                    console.log("wasm finished");
+                });
+
+                initTerminal();
+            })
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
