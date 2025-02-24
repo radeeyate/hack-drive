@@ -44,10 +44,13 @@ jobs:
           fi
           node -e '
             const fs = require("fs");
+            const Go = require("./frontend/wasm_exec.js").Go;
+            const go = new Go();
             const wasmBuffer = fs.readFileSync("frontend/hackdrive.wasm");
-            WebAssembly.instantiate(wasmBuffer).then(
-              (result) => {
+            WebAssembly.instantiate(wasmBuffer, go.importObject).then(
+              async (result) => {
                 console.log("WASM instantiation successful.");
+                go.run(result.instance);
               },
               (error) => {
                 console.error("WASM instantiation failed:", error);
