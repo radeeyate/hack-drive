@@ -21,11 +21,10 @@ var (
 	promptStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#00FF00"))
 	cursorStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("#528bff"))
 
-	// Styles for the welcome message.  Organized for readability.
 	titleStyle = lipgloss.NewStyle().
 			Bold(true).
-			Foreground(lipgloss.Color("#7D56F4")). // Purple
-			Padding(0, 1)                          // Padding around the text
+			Foreground(lipgloss.Color("#7D56F4")).
+			Padding(0, 1)
 
 	subtitleStyle = lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FAFAFA")).
@@ -36,10 +35,9 @@ var (
 	bold = lipgloss.NewStyle().
 		Bold(true)
 
-	// Neofetch styles
 	labelStyle = lipgloss.NewStyle().
 			Bold(true).
-			Foreground(lipgloss.Color("#FF69B4")) // Hot Pink
+			Foreground(lipgloss.Color("#FF69B4"))
 	infoStyle = lipgloss.NewStyle().
 			Foreground(lipgloss.Color("#FFFFFF"))
 
@@ -136,7 +134,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			input := strings.TrimSpace(m.textInput.Value())
 
 			if input != "" {
-				commands := []string{"ls", "help", "cat", "cat about.txt", "cat resources.txt", "cat submit.txt", "cat requirements.txt", "uptime", "neofetch"} // Include neofetch in suggestions
+				commands := []string{"ls", "help", "cat", "cat about.txt", "cat resources.txt", "cat submit.txt", "cat requirements.txt", "uptime", "neofetch"}
 
 				matches := fuzzy.Find(input, commands)
 				if len(matches) > 0 {
@@ -285,13 +283,11 @@ func bToMb(b uint64) uint64 {
 }
 
 func neofetch() string {
-	// Get system information.  More could be added, but this is a good start.
 	os := runtime.GOOS
 	arch := runtime.GOARCH
 	goVersion := runtime.Version()
 	numCPU := runtime.NumCPU()
 
-	// Create the ASCII art.  This is a simplified Hack Club logo.  Could be made more complex.
 	asciiArt :=
 		`@@G5J??????JJJY5P#@@
 &J77??7!!?JJJJJJJYP&
@@ -306,13 +302,12 @@ JJJJJJ^ .JJ. ^YYYYY5
 
 	artStyle := lipgloss.NewStyle().Foreground(lipgloss.Color("#f1494a"))
 
-	// Build the output string using lipgloss styles for formatting.
 	output := lipgloss.JoinHorizontal(
-		lipgloss.Top, // Align the text and ASCII art at the top.
+		lipgloss.Top,
 		artStyle.Render(asciiArt),
-		"   ", // Add some spacing between the info and the art.
+		"   ",
 		lipgloss.JoinVertical(
-			lipgloss.Left, // Left-align the system info.
+			lipgloss.Left,
 			labelStyle.Render("localhost")+"@"+labelStyle.Render("hack-drive"),
 			"--------------------",
 			labelStyle.Render("OS:      ")+infoStyle.Render(os),
