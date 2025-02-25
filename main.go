@@ -124,7 +124,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 
 		case tea.KeyCtrlC:
-			m.output += m.textInput.Prompt + m.textInput.Value() + "\n"
+			m.output += m.textInput.Prompt + m.textInput.Value() + "^C\n"
 			m.textInput.SetValue("")
 			return m, nil
 
