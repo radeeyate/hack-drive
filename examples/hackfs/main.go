@@ -170,7 +170,7 @@ func (r *RssRoot) Lookup(ctx context.Context, name string, out *fuse.EntryOut) (
 	} else {
 		contentStr = "no content available."
 	}
-	contentBytes := []byte(fmt.Sprintf("Title: %s\nLink: %s\nPublished: %s\n\n%s\n",
+	contentBytes := []byte(fmt.Sprintf("Title: %s\nLink: %s\nPublished: %s\n\n%s\n", // in our case published will just be local time because the YSWS RSS feed doesn't have start dates I think
 		item.Title,
 		item.Link,
 		item.Date.Format(time.RFC1123),
