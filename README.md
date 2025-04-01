@@ -68,7 +68,7 @@ You can use any of the following (or a similar tool):
 
 * [FUSE Wikipedia Entry](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) - A good overview of FUSE.
 * [Harder Drive](http://tom7.org/harder/) - The inspiration for this YSWS
-* [Hackatime](https://waka.hackclub.com/) - Time tracking for Hack Clubbers
+* [Hackatime](https://hackatime.hackclub.com/) - Time tracking for Hack Clubbers
 * The "resources.txt" file within the YSWS website provides links to many helpful libraries
 
 ## Contributing
