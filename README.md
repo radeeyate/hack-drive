@@ -6,7 +6,6 @@ The goal is to build a functional, mountable filesystem that implements a set of
 
 Inspired by the "harder drives" concept by Tom Murphy VII (<http://tom7.org/harder/>).
 
-
 ## You Ship
 
 You'll be creating a program that implements a filesystem.  This means users should be able to:
@@ -24,7 +23,7 @@ You'll be creating a program that implements a filesystem.  This means users sho
 
 * Spend at least 3-4 hours working on your project.  Log your time using Hackatime (<https://waka.hackclub.com/>).
 * Your project *must* be open source (e.g., on GitHub).
-* he project must implement a *mountable and functional* filesystem.
+* The project must implement a *mountable and functional* filesystem.
 * Your filesystem *must* support at least the following operations:
   * `getattr` (get file attributes)
   * `create` (create a new file)
