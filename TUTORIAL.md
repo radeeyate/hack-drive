@@ -10,7 +10,7 @@ There are many different ways to install FUSE or similar libraries across system
 
 ### Go
 
-This tutorial assumes you have Golang already installed. If you don't, you can find instructions here: <https://go.dev/doc/install>.
+This tutorial assumes you have Golang already installed. If you don't, you can find instructions here: <https://go.dev/doc/install>. Please note that this example does not implent every single necessary project requirement for simplicity sake. Please look them over.
 
 ### Setting up your project
 
