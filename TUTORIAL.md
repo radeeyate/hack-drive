@@ -2,7 +2,7 @@
 
 So, I've heard you wanted to make a custom filesystem using FUSE!
 
-I will be using Golang in this tutorial, but you can use any language you want.
+I will be using Golang in this tutorial, but you can use any language you want. If you don't want to use Go, there is a variety of resources listed on the [website](https://hackdrive.radi8.dev).
 
 ## Setting up your environment
 

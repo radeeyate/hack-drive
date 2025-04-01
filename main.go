@@ -212,7 +212,9 @@ once you create your project, please see the submission
 instructions in submit.txt.
 `
 	case "cat resources.txt":
-		return `here are some resources to help you get started:
+		return `we have made a tutorial using golang to get you started on our github: https://github.com/radeeyate/hack-drive/blob/main/TUTORIAL.md
+		
+for everything else, here are some resources to help you get started:
   - fuse (c): https://github.com/libfuse/libfuse
     - awesome-fuse-fs: https://github.com/koding/awesome-fuse-fs
     - go-fuse (golang): https://github.com/hanwen/go-fuse
